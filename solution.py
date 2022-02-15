@@ -6,7 +6,7 @@ import sys
 def webServer(port=13331):
   serverSocket = socket(AF_INET, SOCK_STREAM)
   #Prepare a server socket
-  serverSocket.bind(("", port))
+  serverSocket.bind(("127.0.0.1", port))
   #Fill in start
   serverSocket.listen(1)
   #print statement to test print('The server is ready to receive')
@@ -14,9 +14,11 @@ def webServer(port=13331):
 
   while True:
     #Establish the connection
-    #print statement to test print('Ready to serve...')
+    #print statement to test
+    print('Ready to serve...')
     connectionSocket, addr = serverSocket.accept() #Fill in start...#Fill in end
-    #print statement to test print("Accepted")
+    #print statement to test
+    print("Accepted")
     try:
 
       try:
@@ -27,7 +29,7 @@ def webServer(port=13331):
         
         #Send one HTTP header line into socket.
         # Fill in start
-        connectionSocket.send("200 OK".encode())
+        connectionSocket.send("HTTP/1.1 200 OK\r\n\r\n".encode())
         #print statement to test print("200 OK")
         # Fill in end
 
@@ -40,7 +42,8 @@ def webServer(port=13331):
       except IOError:
         # Send response message for file not found (404)
         # Fill in start
-        connectionSocket.send("404 Not Found".encode())
+
+        connectionSocket.send("HTTP/1.1 404 Not Found\r\n\r\n".encode())
         #print statement to test print("404 Not Found")
         # Fill in end
 
